@@ -9,18 +9,13 @@ function AppLayout() {
 
   return (
     <div className="layout">
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <Header />
-          <main>
-            {/* outlet is a nested route */}
-            <Outlet />
-          </main>
-          <CartOverview />
-        </>
-      )}
+      {isLoading && <Loader />}
+      <Header />
+      <main>
+        {/* outlet is a nested route */}
+        <Outlet />
+      </main>
+      <CartOverview />
     </div>
   );
 }
