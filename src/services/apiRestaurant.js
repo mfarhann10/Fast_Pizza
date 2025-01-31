@@ -1,5 +1,6 @@
 const API_URL = "https://react-fast-pizza-api.jonas.io/api";
 
+//using in menu
 export async function getMenu() {
   const res = await fetch(`${API_URL}/menu`);
 
@@ -10,6 +11,7 @@ export async function getMenu() {
   return data;
 }
 
+//using in search
 export async function getOrder(id) {
   const res = await fetch(`${API_URL}/order/${id}`);
   if (!res.ok) throw Error(`Couldn't find order #${id}`);
@@ -18,6 +20,7 @@ export async function getOrder(id) {
   return data;
 }
 
+//using in createOrder
 export async function createOrder(newOrder) {
   try {
     const res = await fetch(`${API_URL}/order`, {
