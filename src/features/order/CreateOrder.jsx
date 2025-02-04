@@ -41,52 +41,69 @@ function CreateOrder() {
   const formError = useActionData();
 
   return (
-    <div className="">
-      <h2>Ready to order? Let's go!</h2>
+    <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-md">
+      <h2 className="mb-6 text-center text-xl font-bold">
+        Ready to order? Let's go!
+      </h2>
 
-      <Form method="POST">
-        <div>
-          <label>First Name</label>
-          <div>
-            <input type="text" name="customer" required />
-          </div>
+      <Form method="POST" className="space-y-4">
+        {/* First Name */}
+        <div className="flex flex-col">
+          <label className="font-medium">First Name</label>
+          <input
+            type="text"
+            name="customer"
+            required
+            className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-yellow-400 focus:outline-none"
+          />
         </div>
 
-        <div>
-          <label>Phone number</label>
-          <div>
-            <input type="tel" name="phone" required />
-          </div>
-          {formError?.phone && <p>{formError.phone}</p>}
+        {/* Phone Number */}
+        <div className="flex flex-col">
+          <label className="font-medium">Phone number</label>
+          <input
+            type="tel"
+            name="phone"
+            required
+            className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-yellow-400 focus:outline-none"
+          />
+          {formError?.phone && (
+            <p className="mt-1 text-sm text-red-500">{formError.phone}</p>
+          )}
         </div>
 
-        <div>
-          <label>Address</label>
-          <div>
-            <input type="text" name="address" required />
-          </div>
+        {/* Address */}
+        <div className="flex flex-col">
+          <label className="font-medium">Address</label>
+          <input
+            type="text"
+            name="address"
+            required
+            className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-yellow-400 focus:outline-none"
+          />
         </div>
 
-        <div>
+        {/* Priority Checkbox */}
+        <div className="flex items-center space-x-2">
           <input
             type="checkbox"
             name="priority"
             id="priority"
-            // value={withPriority}
-            // onChange={(e) => setWithPriority(e.target.checked)}
+            className="h-5 w-5 rounded border-gray-300 text-yellow-500 focus:ring-yellow-400"
           />
-          <label htmlFor="priority">Want to yo give your order priority?</label>
+          <label htmlFor="priority" className="text-sm font-medium">
+            Want to give your order priority?
+          </label>
         </div>
 
-        <div>
-          <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <button
-            disabled={isSubmitting}
-            className="inline-block rounded-full bg-yellow-400 px-3 py-2 font-bold uppercase tracking-wide text-stone-800 outline-none hover:bg-yellow-300 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? 'Placing order...' : 'Order now'}
-          </button>
-        </div>
+        {/* Submit Button */}
+        <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+        <button
+          disabled={isSubmitting}
+          className="w-full rounded-full bg-yellow-400 px-4 py-2 font-bold uppercase tracking-wide text-stone-800 shadow-md transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:bg-gray-300"
+        >
+          {isSubmitting ? 'Placing order...' : 'Order now'}
+        </button>
       </Form>
     </div>
   );
