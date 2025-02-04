@@ -50,23 +50,13 @@ function CreateOrder() {
         {/* First Name */}
         <div className="flex flex-col">
           <label className="font-medium">First Name</label>
-          <input
-            type="text"
-            name="customer"
-            required
-            className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-yellow-400 focus:outline-none"
-          />
+          <input type="text" name="customer" required className="input" />
         </div>
 
         {/* Phone Number */}
         <div className="flex flex-col">
           <label className="font-medium">Phone number</label>
-          <input
-            type="tel"
-            name="phone"
-            required
-            className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-yellow-400 focus:outline-none"
-          />
+          <input type="tel" name="phone" required className="input" />
           {formError?.phone && (
             <p className="mt-1 text-sm text-red-500">{formError.phone}</p>
           )}
@@ -75,12 +65,7 @@ function CreateOrder() {
         {/* Address */}
         <div className="flex flex-col">
           <label className="font-medium">Address</label>
-          <input
-            type="text"
-            name="address"
-            required
-            className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-yellow-400 focus:outline-none"
-          />
+          <input type="text" name="address" required className="input" />
         </div>
 
         {/* Priority Checkbox */}
