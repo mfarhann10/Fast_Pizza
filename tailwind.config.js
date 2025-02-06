@@ -7,7 +7,14 @@ module.exports = {
     './src/**/*.{js,jsx,ts,tsx}', // Termasuk semua file JS di dalam folder views
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      sans: 'Roboto Mono, monospace',
+    },
+    extend: {
+      height: {
+        screen: '100dvh',
+      },
+    },
   },
   plugins: [],
 };
