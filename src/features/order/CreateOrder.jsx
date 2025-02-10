@@ -20,7 +20,15 @@ function CreateOrder() {
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
-  const username = useSelector((state) => state.user.username);
+  const {
+    username,
+    status: addressStatus,
+    position,
+    address,
+    error: errorAddress,
+  } = useSelector((state) => state.user);
+
+  const isLoadingAddress = addressStatus === 'loading';
   const formError = useActionData();
 
   const dispatch = useDispatch();
@@ -38,8 +46,6 @@ function CreateOrder() {
       <h2 className="mb-6 text-center text-xl font-bold">
         Ready to order? Let's go!
       </h2>
-
-      <button onClick={() => dispatch(fetchAddress())}>Get position</button>
 
       <Form method="POST" className="space-y-4">
         {/* First Name */}
@@ -64,9 +70,35 @@ function CreateOrder() {
         </div>
 
         {/* Address */}
-        <div className="flex flex-col">
+        <div className="relative flex flex-col">
           <label className="font-medium">Address</label>
-          <input type="text" name="address" required className="input" />
+          <div className="grow">
+            <input
+              type="text"
+              name="address"
+              required
+              className="input"
+              disabled={isLoadingAddress}
+              defaultValue={address}
+            />
+            {addressStatus === 'error' && (
+              <p className="mt-1 text-sm text-red-500">{errorAddress}</p>
+            )}
+          </div>
+          {!position.latitude && !position.longitude && (
+            <span className="absolute right-2 top-8">
+              <Button
+                disabled={isLoadingAddress}
+                type="small"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(fetchAddress());
+                }}
+              >
+                Get position
+              </Button>
+            </span>
+          )}
         </div>
 
         {/* Priority Checkbox */}
@@ -86,7 +118,16 @@ function CreateOrder() {
 
         {/* Submit Button */}
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-        <Button type="primary" disabled={isSubmitting}>
+        <input
+          type="hidden"
+          name="position"
+          value={
+            position.latitude && position.longitude
+              ? `${position.latitude},${position.longitude}`
+              : ''
+          }
+        />
+        <Button type="primary" disabled={isSubmitting || isLoadingAddress}>
           {isSubmitting
             ? 'Placing order...'
             : `Order now ${formatCurrency(totalPrice)}`}
